@@ -1,0 +1,112 @@
+ASSIGNMENT 2-
+//Ques1-
+const user = mongoose.Schema({
+    user : {type: mongoose.Schema.ObjectID, ref: 'userSchema', required: true},
+    name:{type:String,required:true},
+    email:{type:String,unique:true},
+    password:{type:password,unique:true,minlength:6,maxlength:10}
+    
+});
+uniqueness-db.users.createIndex({ email: 1 }, { unique: true });
+const product=mongoose.Schema({
+    title:{type:String},
+    description:{type:String},
+    price:{type:Number,minimum:0},
+    category:{type:String},
+    stock:{type:int,minimum:0}
+});
+const orders=mongoose.Schema({
+    userId:{type:Number,unique:true},
+    productid:{type:Number,required:true},
+    totalamount:{type:Number,minimum:0},
+    orderDate:{type:Date,default:Date.now}
+});
+const reviews=mongoose.Schema({
+    links:{type:String,required:true},
+    ratings:{type:Int16Array,minimum:1,maximum:5},
+    comments:{type:String}
+});
+//Ques2-
+const users=mongoose.Schema({
+    name:{type:String,required:true},
+    email:{type:String,unique:true,required:true},
+    role:{Type: string,
+        enum: ["student", "instructor"]}
+});
+const course=mongoose.Schema({
+    title:{type:String},
+    instructorId:{type:ObjectID,unique:true},
+    category:{type:String},
+    price:{type:Number,minimum:0},
+    createdAt:{type:Date,default:Date.now}
+});
+const lessons=mongoose.Schema({
+    title:{type:String},
+    videoURL: {type:String},
+    duration (in minutes) :{type:Number,minimum:1}
+     
+});
+const enrollment=mongoose.Schema({
+    studentId:{type:ObjectID,required:true},
+    courseId:{type:ObjectID,required:true},
+    enrolledAt:{type:Date,default:Date.now}
+});
+//Ques3-
+const users=mongoose.Schema({
+    name:{type:String,required:true},
+    email:{type:String,unique:true,pattern:"^\\S+@\\S+\\.\\S+$"},
+    role:{type:String,enum:["student","instructor"]}
+});
+const events=mongoose.Schema({
+        title:{type:String},
+        organizerId:{type:ObjectID,required:true},
+        location:{type:String},
+        startTime:{type:Date},
+        endTime:{type:Date},
+        capacity:{type:int,description:"Capacity must be positive number"}
+});
+const bookings=mongoose.Schema({
+    eventId:{type:ObjectID,required:true},
+    attendeeId: {type:ObjectID,required:true},
+    bookingDate :{type:Date}
+});
+//Ques4-
+const author=mongoose.Schema({
+    name:{type:String,required:true},
+    email:{type:String,unique:true,pattern:"^\\S+@\\S+\\.\\S+$"}
+    bio:{type:String}
+});
+const articles=mongoose.Schema({
+    title:{type:String,required:true},
+    content:{type:String,required:true},
+    authorId:{type:ObjectID,unique:true},
+    tags:{type:Array,items:{type:String}},
+    published:{type:boolean},
+    createdAt:{type:Date,default:Date.now}
+});
+const comments=mongoose.Schema({
+    userName:{type:ObjectID, ref: 'articleId', required: true},
+    commentText:{type:String},
+    postedAt:{type:Date,default:Date.now}
+});
+//Ques5-
+const users=mongoose.Schema({
+    email:{type:String,unique:true},
+    name:{type:String,required:true},
+    signupDate:{type:Date,default:Date.now}
+});
+const price=mongoose.Schema({
+    name:{type:String,required:true},
+    price:{type:Number,minimum:0},
+    features:{type:Array,list:{type:String}},
+    billingCycle:{type:String,enum:["monthly","yearly"]}
+});
+const subscriptions=mongoose.Schema({
+    userId:{type:ObjectID,required:true},
+    planId:{type:ObjectID,required:true}
+    startDate:{type:Date,default:Date.now},
+    isActive:{type:boolean}
+});
+
+
+
